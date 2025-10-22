@@ -1,26 +1,35 @@
 import LeftSideBar from "./elements/left_side_bar";
-import ElementyLewegoPaska from "./hooks/elementyLewegoPaska"
+import ElementyLewegoPaska from "./hooks/elementyLewegoPaska";
 import Naglowek from "./elements/header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-
+import { useState, useEffect } from "react";
 
 export default function App() {
-
-  const elementyDoWypisania = ElementyLewegoPaska()
+  const [wpisy, setWpisy] = useState([]);
+  
+  const handlujDodanieWpisu = (nowyWpis) => {
+    setWpisy((aktualniePrzechowaneWpisy) => [
+      ...aktualniePrzechowaneWpisy,
+      nowyWpis,
+    ]);
+  };
+  
+  const elementyDoWypisania = ElementyLewegoPaska(handlujDodanieWpisu);
 
   return (
     <div className="bg-gray-200 min-h-screen w-full grid grid-cols-[200px_1fr_200px] grid-rows-[100px_1fr_100px]">
-      <BrowserRouter>        
+      <BrowserRouter>
         <div className="row-start-1 px-6 bg-gray-100 shadow-sm border-b border-gray-200 col-span-3 ml-2 mr-2">
-          <Naglowek/>
+          <Naglowek />
         </div>
 
-        <LeftSideBar elementyDoWypisania={elementyDoWypisania}/>
+        <LeftSideBar elementyDoWypisania={elementyDoWypisania} />
 
         {/* glowna strona */}
-        <div className="m-2 mt-4 row-start-2 col-start-2 bg-gray-100 shadow-sm p-6 border border-gray-200
-        text-gray-600 leading-relaxed">
+        <div
+          className="m-2 mt-4 row-start-2 col-start-2 bg-gray-100 shadow-sm p-6 border border-gray-200
+        text-gray-600 leading-relaxed"
+        >
           <Routes>
             {elementyDoWypisania.map((elementy) => (
               <Route
