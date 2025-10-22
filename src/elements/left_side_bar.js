@@ -10,8 +10,8 @@ export default function LeftSideBar(props) {
           {props.elementyDoWypisania.map((elementy) => (
             // <li className="text-center flex-auto m-4" key={elementy.id}>
             // <li className="text-center block rounded-lg hover:bg-green-500 text-gray-700 font-medium transition p-4" key={elementy.id}>
-            <li className="text-center rounded-lg  text-gray-700 font-medium pb-1 pt-1 flex items-center" key={elementy.id}>
-              <Link to={elementy.sciezka} className="hover:bg-green-500 rounded-lg transition-colors font-medium px-6 py-6 w-full duration-400 flex">
+            <li className="text-center rounded-lg  text-gray-700 font-medium pb-1 pt-1 flex items-center w-full" key={elementy.id}>
+              <Link to={elementy.sciezka} className="flex justify-start hover:bg-green-500 rounded-lg transition-colors font-medium px-6 py-6 w-full duration-400">
                 {elementy.nazwa_do_paska}
               </Link>
             </li>

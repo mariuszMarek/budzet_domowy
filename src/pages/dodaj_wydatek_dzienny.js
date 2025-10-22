@@ -1,41 +1,80 @@
-import { pola, useWydatek } from "../hooks/formularze";
-export default function WydatekDzienny({ onSubmit }) {
-  const { wydatek, setWydatek, handlujZmiane, zerujFormularz } = useWydatek();
+import { pola, useWydatek,formatujKwote } from "../hooks/formularze";
+export default function WydatekDzienny({ handlujDodanieWpisu }) {
+  const { wydatek, setWydatek, handlujZmiane, zerujFormularz, handlujOnBlur } =
+    useWydatek();
 
   const dodajWpis = (e) => {
     e.preventDefault();
-    onSubmit(wydatek);
+    const wydatekSformatowany = {
+        ...wydatek,
+        kwota_wpisu: formatujKwote(wydatek.kwota_wpisu)
+    }
+    handlujDodanieWpisu(wydatekSformatowany);
     zerujFormularz();
   };
 
   const kodHTML = (
     <div>
-      <form onSubmit={dodajWpis} className="space-y-4 max-w-lg">
+      <form onSubmit={dodajWpis} className="max-w">
         {Object.entries(pola).map((pole) => {
-          const { datalist, value: defaultValue, ...listaAtrybuty } = pole;
-          const atrybuty = listaAtrybuty[1]
-        //   console.log(atrybuty[1])
+          const { datalist, wartosc_domyslna, value, ...listaAtrybuty } = pole;
+          const atrybuty = listaAtrybuty[1];
+          const aktualnaWartosc = wydatek[atrybuty.name];
+          //   console.log(aktualnaWartosc)
           if (atrybuty.type === "hidden") {
-            return <input className="flex flex-col" {...atrybuty} onChange={handlujZmiane} />;
+            return (
+              <input
+                key={atrybuty.id}
+                // value={aktualnaWartosc}
+                value={aktualnaWartosc}
+                onChange={handlujZmiane}
+                {...atrybuty}
+              />
+            );
           }
           if (atrybuty.type === "list") {
-            return <input className="flex flex-col" type="text" value="dupa" placeholder="ELO" />;
+            return (
+              <div className="pb-4 flex flex-col" key={atrybuty.id}>
+                <label className="mb-1 font-medium" htmlFor={atrybuty.id}>
+                  {atrybuty?.label}:
+                  <input
+                    ket={atrybuty.id}
+                    className="mt-2 p-2 rounded-md shadow-md w-full"
+                    list={atrybuty.id}
+                    value={aktualnaWartosc}
+                    onChange={handlujZmiane}
+                  />
+                </label>
+                <datalist id={atrybuty.id}>
+                  {atrybuty.datalist.map((wpisListy) => {
+                    return <option key={wpisListy} value={wpisListy} />;
+                  })}
+                </datalist>
+              </div>
+            );
           }
           return (
-            <div key={atrybuty.id} className="flex flex-col">
+            <div key={atrybuty.id} className="pb-4 flex flex-col">
               <label htmlFor={atrybuty.id} className="mb-1 font-medium">
-                {atrybuty.placeholder}: {/* Używamy placeholder jako labelki */}
+                {atrybuty.label}:
               </label>
               <input
-                {...atrybuty} // Przekazuje name, id, type, required, placeholder, step, min...
-                value={wydatek[atrybuty.name]} // Wartość ZAWSZE ze stanu
+                {...atrybuty}
+                value={aktualnaWartosc}
+                key={atrybuty.id}
                 onChange={handlujZmiane}
-                className="p-2 border rounded-md shadow-sm"
+                className="p-2 border rounded-md shadow-md w-full"
+                onBlur={atrybuty.name === "kwota_wpisu" ? handlujOnBlur : null}
               />
             </div>
           );
         })}
-        <input type="submit" />
+        <button
+          type="submit"
+          className="flex flex-col hover:bg-emerald-500 shadow-md rounded-xl p-4 justify-center w-full trams"
+        >
+          Dodaj
+        </button>
       </form>
     </div>
   );

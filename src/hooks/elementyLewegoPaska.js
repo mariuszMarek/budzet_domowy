@@ -19,7 +19,7 @@ export default function ElementyLewegoPaska(handlujDodanieWpisu) {
     },
     {
       id: licznikId++,
-      nazwa_wyswietlana: <WydatekDzienny onSubmit={handlujDodanieWpisu} />,
+      nazwa_wyswietlana: <WydatekDzienny handlujDodanieWpisu={handlujDodanieWpisu} />,
       sciezka: "formularz",
       nazwa_do_paska: "Formularz",
     },

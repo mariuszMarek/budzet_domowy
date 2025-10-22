@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 
+export const formatujKwote = (wartosc) => {
+  const num = parseFloat(String(wartosc).replace(",", "."));
+  if (isNaN(num) || num < 0) {
+    return "0.00";
+  }
+
+  return num.toFixed(2);
+};
 export const pola = [
   {
     name: "id_wpisu",
     id: "id_wpisu",
-    key: "id_wpisu",
-    value: crypto.randomUUID(),
+    // value: crypto.randomUUID(),
+    wartosc_domyslna: crypto.randomUUID(),
     type: "hidden",
   },
   {
     name: "dzien_wpisu",
     id: "dzien_wpisu",
-    key: "dzien_wpisu",
-    placeholder: "Data wpisu",
-    value: new Date().toISOString().slice(0, -8),
+    label: "Data wpisu",
+    wartosc_domyslna: new Date(new Date().setHours(new Date().getHours() + 2))
+      .toISOString()
+      .slice(0, -8),
     type: "datetime-local",
     step: 60,
     required: true,
@@ -21,32 +30,33 @@ export const pola = [
   {
     name: "kwota_wpisu",
     id: "kwota_wpisu",
-    key: "kwota_wpisu",
-    value: 0.0,
-    type: "number",
-    step: 0.01,
-    min: 0.0,
-    placeholder: "Kwota którą chcesz zapisać",
+    wartosc_domyslna: "6.66",
+    type: "text",
+    inputMode: "decimal",
+    label: "Kwota którą chcesz zapisać",
+    placeholder: "PLN",
     required: true,
   },
   {
     name: "opis_wpisu",
     id: "opis_wpisu",
-    key: "opis_wpisu",
-    value: "",
+
+    wartosc_domyslna: "opis_wpisu",
     type: "text",
     minLength: 4,
     maxLength: 50,
-    placeholder: "Krótki opis danego wydatku",
+    label: "Krótki opis danego wydatku",
+    placeholder: "biedra",
     required: true,
   },
   {
     name: "kategoria",
     id: "kategoria",
-    key: "kategoria",
-    value: "",
+
+    wartosc_domyslna: "Różne",
     type: "list",
     placeholder: "Kategoria wpisu",
+    label: "Typ transakcji",
     datalist: [
       "Różne",
       "Dom",
@@ -60,8 +70,9 @@ export const pola = [
   {
     name: "okres_wpisu",
     id: "okres_wpisu",
-    key: "okres_wpisu",
-    value: "",
+
+    label: "Okresowość wydatku",
+    wartosc_domyslna: "Miesięcznie",
     type: "list",
     minLength: 4,
     maxlength: 50,
@@ -77,28 +88,47 @@ export const pola = [
     ],
   },
 ];
+
 const stanZero = Object.fromEntries(
-  pola.map((pole) => [pole.value, pole.name])
+  pola.map((pole) => [pole.name, ""])
 );
 const ustawStanZero = () => ({
   ...stanZero,
   id_wpisu: crypto.randomUUID(),
-  dzien_wpisu: new Date().toISOString().slice(0, -8),
+  dzien_wpisu: new Date(new Date().setHours(new Date().getHours() + 2))
+    .toISOString()
+    .slice(0, -8),
 });
 
 export function useWydatek() {
   const [wydatek, setWydatek] = useState(ustawStanZero());
 
   const handlujZmiane = (e) => {
-    const { name, value } = e.target;
+    var { name, value } = e.target;
+
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
+      id_wpisu: crypto.randomUUID(),
+      [name]: value,
+    }));
+  };
+  const handlujOnBlur = (e) => {
+    var { name, value } = e.target;
+    if (name === "kwota_wpisu") {
+      value = formatujKwote(value);
+    }
+    setWydatek((poprzedni_wpis) => ({
+      ...poprzedni_wpis,
+      id_wpisu: crypto.randomUUID(),
       [name]: value,
     }));
   };
 
   const zerujFormularz = () => {
-    setWydatek(ustawStanZero());
+    setWydatek((poprzedni_wpis) =>({
+        ...poprzedni_wpis,
+        id_wpisu:crypto.randomUUID()
+    }));
   };
 
   return {
@@ -106,5 +136,6 @@ export function useWydatek() {
     setWydatek,
     handlujZmiane,
     zerujFormularz,
+    handlujOnBlur,
   };
 }
