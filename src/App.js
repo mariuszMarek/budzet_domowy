@@ -54,7 +54,7 @@ export default function App() {
                   <div>{wpis.dzien_wpisu.split("T")[0]}</div>
                   <div >{wpis.kwota_wpisu}</div>
                   <div >{wpis.okres_wpisu}</div>
-                  <div >{wpis.opis_transakcji}</div>
+                  <div >{wpis.kategoria}</div>
                 </li>
               );
             })}

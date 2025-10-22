@@ -52,7 +52,6 @@ export const pola = [
   {
     name: "kategoria",
     id: "kategoria",
-
     wartosc_domyslna: "Różne",
     type: "list",
     placeholder: "Kategoria wpisu",
@@ -75,7 +74,7 @@ export const pola = [
     wartosc_domyslna: "Miesięcznie",
     type: "list",
     minLength: 4,
-    maxlength: 50,
+    maxLength: 50,
     placeholder: "Częstotliwośc wpisu",
     datalist: [
       "Jednorazowo",
@@ -108,7 +107,7 @@ export function useWydatek() {
 
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
-      id_wpisu: crypto.randomUUID(),
+    //   id_wpisu: crypto.randomUUID(),
       [name]: value,
     }));
   };
@@ -119,7 +118,7 @@ export function useWydatek() {
     }
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
-      id_wpisu: crypto.randomUUID(),
+    //   id_wpisu: crypto.randomUUID(),
       [name]: value,
     }));
   };

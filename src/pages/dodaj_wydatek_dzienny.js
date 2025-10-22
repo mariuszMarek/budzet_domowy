@@ -16,11 +16,10 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
   const kodHTML = (
     <div>
       <form onSubmit={dodajWpis} className="max-w">
-        {Object.entries(pola).map((pole) => {
-          const { datalist, wartosc_domyslna, value, ...listaAtrybuty } = pole;
-          const atrybuty = listaAtrybuty[1];
+        {pola.map((pole) => {
+          const { datalist, wartosc_domyslna, label, ...atrybuty } = pole;
           const aktualnaWartosc = wydatek[atrybuty.name];
-          //   console.log(aktualnaWartosc)
+            // console.log(aktualnaWartosc)
           if (atrybuty.type === "hidden") {
             return (
               <input
@@ -28,7 +27,8 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
                 // value={aktualnaWartosc}
                 value={aktualnaWartosc}
                 onChange={handlujZmiane}
-                {...atrybuty}
+                name={atrybuty.name}
+                type="hidden"
               />
             );
           }
@@ -36,27 +36,39 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
             return (
               <div className="pb-4 flex flex-col" key={atrybuty.id}>
                 <label className="mb-1 font-medium" htmlFor={atrybuty.id}>
-                  {atrybuty?.label}:
-                  <input
-                    ket={atrybuty.id}
+                  {label}:
+                  {/* <input                    
                     className="mt-2 p-2 rounded-md shadow-md w-full"
                     list={atrybuty.id}
                     value={aktualnaWartosc}
                     onChange={handlujZmiane}
-                  />
+                    {...atrybuty}
+                    type="text"
+                  /> */}
                 </label>
-                <datalist id={atrybuty.id}>
-                  {atrybuty.datalist.map((wpisListy) => {
+                  <select className="mt-2 p-2 rounded-md shadow-md w-full bg-black bg-transparent"
+                  id={atrybuty.id}
+                  name={atrybuty.id}
+                  onChange={handlujZmiane}
+                  value={aktualnaWartosc}
+                  >
+                    {datalist.map((wpisListy) => {
+                        console.log(wpisListy)
+                        return <option key={wpisListy} value={wpisListy} />;}
+                    )}
+                  </select>
+                {/* <datalist id={atrybuty.id}>
+                  {datalist.map((wpisListy) => {
                     return <option key={wpisListy} value={wpisListy} />;
                   })}
-                </datalist>
+                </datalist> */}
               </div>
             );
           }
           return (
             <div key={atrybuty.id} className="pb-4 flex flex-col">
               <label htmlFor={atrybuty.id} className="mb-1 font-medium">
-                {atrybuty.label}:
+                {label}:
               </label>
               <input
                 {...atrybuty}
