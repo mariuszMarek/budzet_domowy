@@ -4,21 +4,20 @@ import clsx from "clsx";
 
 import { useState } from "react";
 
-export default function CustomCombobox({ daneDoListowania }) {
-  const [zapytanie, setZapytanie] = useState("");
-  console.log(daneDoListowania);
+export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmiana }) {
+  const [zapytanie, setZapytanie] = useState("");  
   const [wybranyElement, setWybranyElement] = useState(daneDoListowania[0]);
-
   const odfiltrowanaLista =
-    zapytanie === ""
-      ? daneDoListowania
-      : daneDoListowania.map((element) => {
-          return element.wartosc.toLowerCase().includes(zapytanie.toLowerCase());
-        });
-
+  zapytanie === ""
+  ? daneDoListowania
+  : daneDoListowania.map((element) => {
+    return element.wartosc.toLowerCase().includes(zapytanie.toLowerCase());
+  });
+  
+  const lokalneValue = aktualneValue !== "" ? odfiltrowanaLista[0].wartosc : aktualneValue
   return (
     <div className=''>
-      <Combobox value={wybranyElement} onChange={setWybranyElement} onClose={() => setZapytanie("")}>
+      <Combobox value={wybranyElement} onChange={gdyZmiana} onClose={() => setZapytanie("")}>
         <div className='relative'>
           <ComboboxInput
             className={clsx(

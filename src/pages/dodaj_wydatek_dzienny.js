@@ -38,7 +38,7 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
                   {label}:
                 </label>
                 {console.log(atrybuty.name)}
-                <CustomCombobox daneDoListowania={atrybuty.dataMap} />
+                <CustomCombobox daneDoListowania={atrybuty.dataMap} aktualneValue={aktualnaWartosc} gdyZmiana={handlujZmiane}/>
               </div>
             );
           } else {
@@ -59,7 +59,7 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
             );
           }
         })}
-        <button type='submit' className='flex flex-col hover:bg-emerald-500 shadow-md rounded-xl p-4 justify-center max-w'>
+        <button type='submit' className='flex flex-col hover:bg-emerald-500 shadow-md rounded-xl p-4 justify-center transition w-full'>
           Dodaj
         </button>
       </form>
