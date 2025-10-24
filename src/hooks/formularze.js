@@ -20,9 +20,7 @@ export const pola = [
     name: "dzien_wpisu",
     id: "dzien_wpisu",
     label: "Data wpisu",
-    wartosc_domyslna: new Date(new Date().setHours(new Date().getHours() + 2))
-      .toISOString()
-      .slice(0, -8),
+    wartosc_domyslna: new Date(new Date().setHours(new Date().getHours() + 2)).toISOString().slice(0, -8),
     type: "datetime-local",
     step: 60,
     required: true,
@@ -57,13 +55,13 @@ export const pola = [
     placeholder: "Kategoria wpisu",
     label: "Typ transakcji",
     dataMap: [
-      {id: 1, wartosc:"Różne"},
-      {id: 2, wartosc:"Dom"},
-      {id: 3, wartosc:"Podróż"},
-      {id: 4, wartosc:"Jedzenie"},
-      {id: 5, wartosc:"Wyjście na miasto"},
-      {id: 6, wartosc:"Rozrywka"},
-      {id: 7, wartosc:"Inwestycje"},
+      { id: 1, wartosc: "Różne", nazwa: "kategoria" },
+      { id: 2, wartosc: "Dom", nazwa: "kategoria" },
+      { id: 3, wartosc: "Podróż", nazwa: "kategoria" },
+      { id: 4, wartosc: "Jedzenie", nazwa: "kategoria" },
+      { id: 5, wartosc: "Wyjście na miasto", nazwa: "kategoria" },
+      { id: 6, wartosc: "Rozrywka", nazwa: "kategoria" },
+      { id: 7, wartosc: "Inwestycje", nazwa: "kategoria" },
     ],
   },
   {
@@ -77,40 +75,41 @@ export const pola = [
     maxLength: 50,
     placeholder: "Częstotliwośc wpisu",
     dataMap: [
-      {id: 1, wartosc:"Jednorazowo"},
-      {id: 2, wartosc:"Dziennie"},
-      {id: 3, wartosc:"Tygodniowo"},
-      {id: 4, wartosc:"Miesięcznie"},
-      {id: 5, wartosc:"Kwartalnie"},
-      {id: 6, wartosc:"Pół rocznie"},
-      {id: 7, wartosc:"Rocznie"},
+      { id: 1, wartosc: "Jednorazowo", nazwa: "okres_wpisu" },
+      { id: 2, wartosc: "Dziennie", nazwa: "okres_wpisu" },
+      { id: 3, wartosc: "Tygodniowo", nazwa: "okres_wpisu" },
+      { id: 4, wartosc: "Miesięcznie", nazwa: "okres_wpisu" },
+      { id: 5, wartosc: "Kwartalnie", nazwa: "okres_wpisu" },
+      { id: 6, wartosc: "Pół rocznie", nazwa: "okres_wpisu" },
+      { id: 7, wartosc: "Rocznie", nazwa: "okres_wpisu" },
     ],
   },
 ];
 
-const stanZero = Object.fromEntries(
-  pola.map((pole) => [pole.name, ""])
-);
+const stanZero = Object.fromEntries(pola.map((pole) => [pole.name, ""]));
 const ustawStanZero = () => ({
   ...stanZero,
   id_wpisu: crypto.randomUUID(),
-  dzien_wpisu: new Date(new Date().setHours(new Date().getHours() + 2))
-    .toISOString()
-    .slice(0, -8),
+  dzien_wpisu: new Date(new Date().setHours(new Date().getHours() + 2)).toISOString().slice(0, -8),
 });
 
 export function useWydatek() {
   const [wydatek, setWydatek] = useState(ustawStanZero());
 
   const handlujZmiane = (e) => {
-    var { name, value } = e.target;
+    var { name = "", value = "" } = e?.target || {};
 
+    if (name === "" || name === "") {      
+      const { id = "", wartosc = "", nazwa ="" } = e || {};
+      value = wartosc;
+      name = nazwa;
+    }
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
-    //   id_wpisu: crypto.randomUUID(),
       [name]: value,
     }));
   };
+
   const handlujOnBlur = (e) => {
     var { name, value } = e.target;
     if (name === "kwota_wpisu") {
@@ -118,15 +117,14 @@ export function useWydatek() {
     }
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
-    //   id_wpisu: crypto.randomUUID(),
       [name]: value,
     }));
   };
 
   const zerujFormularz = () => {
-    setWydatek((poprzedni_wpis) =>({
-        ...poprzedni_wpis,
-        id_wpisu:crypto.randomUUID()
+    setWydatek((poprzedni_wpis) => ({
+      ...poprzedni_wpis,
+      id_wpisu: crypto.randomUUID(),
     }));
   };
 

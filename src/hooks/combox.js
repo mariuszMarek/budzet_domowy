@@ -7,17 +7,18 @@ import { useState } from "react";
 export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmiana }) {
   const [zapytanie, setZapytanie] = useState("");  
   const [wybranyElement, setWybranyElement] = useState(daneDoListowania[0]);
+  const {id, wartosc, nazwa} = aktualneValue
   const odfiltrowanaLista =
   zapytanie === ""
   ? daneDoListowania
-  : daneDoListowania.map((element) => {
+  : daneDoListowania.filter((element) => {
     return element.wartosc.toLowerCase().includes(zapytanie.toLowerCase());
   });
-  
-  const lokalneValue = aktualneValue !== "" ? odfiltrowanaLista[0].wartosc : aktualneValue
+  // console.log(odfiltrowanaLista)
+  // const lokalneValue = aktualneValue !== "" ? odfiltrowanaLista[0].wartosc : aktualneValue
   return (
     <div className=''>
-      <Combobox value={wybranyElement} onChange={gdyZmiana} onClose={() => setZapytanie("")}>
+      <Combobox value={wartosc} onChange={gdyZmiana} onClose={() => setZapytanie("")}>
         <div className='relative'>
           <ComboboxInput
             className={clsx(
@@ -40,7 +41,7 @@ export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmi
           )}
         >
           {odfiltrowanaLista.map((element) => (
-            <ComboboxOption
+            <ComboboxOption            
               key={element.id}
               value={element}
               className='group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 select-none data-focus:bg-black/10'

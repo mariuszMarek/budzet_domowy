@@ -8,7 +8,7 @@ export default function LeftSideBar(props) {
           <li className='text-center rounded-lg  text-gray-700 font-medium pb-1 pt-1' key={elementy.id}>
             <Link
               to={elementy.sciezka}
-              className='flex hover:bg-green-500 rounded-lg transition-colors font-medium px-6 py-6 w-full duration-400'
+              className='flex hover:bg-emerald-500 rounded-lg transition-colors font-medium px-6 py-6 w-full duration-400'
             >
               {elementy.nazwa_do_paska}
             </Link>
