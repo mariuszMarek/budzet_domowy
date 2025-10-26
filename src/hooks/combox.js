@@ -23,7 +23,7 @@ export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmi
           <ComboboxInput
             className={clsx(
               "w-full rounded-md border-none bg-white shadow-md py-1.5 pr-8 pl-3 text-sm/6 text-black",
-              "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-black/25"
+              "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
             )}
             displayValue={(comboBoxWybranyElement) => comboBoxWybranyElement?.wartosc}
             onChange={(event) => setZapytanie(event.target.value)}
@@ -36,17 +36,17 @@ export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmi
           anchor='bottom start'
           transition
           className={clsx(
-            "w-(--input-width) rounded-xl border border-black/5 bg-black p-1 [--anchor-gap:--spacing(1)] empty:invisible",
-            "transition duration-100 ease-in data-leave:data-closed:opacity-0"
+            "w-(--input-width) rounded-xl border border-black/5 bg-white p-1 [--anchor-gap:--spacing(1)] empty:invisible text-black",
+            "transition duration-100 ease-in data-leave:data-closed:opacity-0 mt-2"
           )}
         >
           {odfiltrowanaLista.map((element) => (
             <ComboboxOption            
               key={element.id}
               value={element}
-              className='group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 select-none data-focus:bg-black/10'
+              className='group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 select-none hover:bg-emerald-500/50'
             >
-              <div className='text-sm/6 text-white/60'>{element.wartosc}</div>
+              <div className='text-sm/6 text-black/50'>{element.wartosc}</div>
             </ComboboxOption>
           ))}
         </ComboboxOptions>
