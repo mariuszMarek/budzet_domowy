@@ -2,12 +2,14 @@ import StronaGlowna from "../pages/strona_glowna";
 import WydatkiDzienne from "../pages/wydatki_dzienne";
 import WydatekDzienny from "../pages/dodaj_wydatek_dzienny";
 
-export default function ElementyLewegoPaska(handlujDodanieWpisu) {
+export default function ElementyLewegoPaska(handlujDodanieWpisu, wpisy) {
+  // console.log("zwracam elementy do wyboru")
+  // console.log(wpisy)
   var licznikId = 1;
   const elementyDoWypisania = [
     {
       id: licznikId++,
-      nazwa_wyswietlana: <StronaGlowna />,
+      nazwa_wyswietlana: <StronaGlowna tablicaWierszy={wpisy}/>,
       sciezka: "strona_glowna",
       nazwa_do_paska: "Główna",
     },

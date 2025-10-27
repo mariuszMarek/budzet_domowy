@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+const czasLetni_Zimowy = 1;
 export const formatujKwote = (wartosc) => {
   const num = parseFloat(String(wartosc).replace(",", "."));
   if (isNaN(num) || num < 0) {
@@ -20,7 +21,7 @@ export const pola = [
     name: "dzien_wpisu",
     id: "dzien_wpisu",
     label: "Data wpisu",
-    wartosc_domyslna: new Date(new Date().setHours(new Date().getHours() + 2)).toISOString().slice(0, -8),
+    wartosc_domyslna: new Date(new Date().setHours(new Date().getHours() + czasLetni_Zimowy)).toISOString().slice(0, -8),
     type: "datetime-local",
     step: 60,
     required: true,
@@ -90,7 +91,8 @@ const stanZero = Object.fromEntries(pola.map((pole) => [pole.name, ""]));
 const ustawStanZero = () => ({
   ...stanZero,
   id_wpisu: crypto.randomUUID(),
-  dzien_wpisu: new Date(new Date().setHours(new Date().getHours() + 2)).toISOString().slice(0, -8),
+
+  dzien_wpisu: new Date(new Date().setHours(new Date().getHours() + czasLetni_Zimowy)).toISOString().slice(0, -8),
 });
 
 export function useWydatek() {

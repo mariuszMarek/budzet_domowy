@@ -3,7 +3,7 @@ import ElementyLewegoPaska from "./hooks/elementyLewegoPaska";
 import Naglowek from "./elements/header";
 import OstatnieWpisy from "./elements/ostatnie_wpisy";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function App() {
   const [wpisy, setWpisy] = useState([]);
@@ -14,7 +14,10 @@ export default function App() {
     setWpisy((aktualniePrzechowaneWpisy) => [...aktualniePrzechowaneWpisy, nowyWpis]);
   };
 
-  const elementyDoWypisania = ElementyLewegoPaska(handlujDodanieWpisu);
+  const elementyDoWypisania = useMemo( () =>{
+    return ElementyLewegoPaska(handlujDodanieWpisu, wpisy);
+  }, [wpisy])
+   
 
   return (
     // <div className="bg-gray-200 min-h-screen w-full grid grid-cols-[200px_1fr_250px] grid-rows-[100px_1fr_100px]">

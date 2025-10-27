@@ -32,7 +32,7 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
             );
           }
           if (atrybuty.type === "list") {
-            console.log(aktualnaWartosc)
+            // console.log(aktualnaWartosc)
             return (
               <div className='pb-4 flex flex-col' key={atrybuty.id}>
                 <label className='mb-1 font-medium' htmlFor={atrybuty.id}>

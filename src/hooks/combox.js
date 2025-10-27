@@ -5,17 +5,15 @@ import clsx from "clsx";
 import { useState } from "react";
 
 export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmiana }) {
-  const [zapytanie, setZapytanie] = useState("");  
+  const [zapytanie, setZapytanie] = useState("");
   const [wybranyElement, setWybranyElement] = useState(daneDoListowania[0]);
   const {id, wartosc, nazwa} = aktualneValue
   const odfiltrowanaLista =
-  zapytanie === ""
-  ? daneDoListowania
-  : daneDoListowania.filter((element) => {
-    return element.wartosc.toLowerCase().includes(zapytanie.toLowerCase());
-  });
-  // console.log(odfiltrowanaLista)
-  // const lokalneValue = aktualneValue !== "" ? odfiltrowanaLista[0].wartosc : aktualneValue
+    zapytanie === ""
+      ? daneDoListowania
+      : daneDoListowania.filter((element) => {
+          return element.wartosc.toLowerCase().includes(zapytanie.toLowerCase());
+        });
   return (
     <div className=''>
       <Combobox value={wartosc} onChange={gdyZmiana} onClose={() => setZapytanie("")}>
@@ -41,7 +39,7 @@ export default function CustomCombobox({ daneDoListowania, aktualneValue, gdyZmi
           )}
         >
           {odfiltrowanaLista.map((element) => (
-            <ComboboxOption            
+            <ComboboxOption
               key={element.id}
               value={element}
               className='group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 select-none hover:bg-emerald-500/50'
