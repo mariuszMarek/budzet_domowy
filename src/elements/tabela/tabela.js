@@ -1,13 +1,13 @@
 import Cialo from "./cialo";
 import Naglowek from "./naglowek";
 export default function WlasnaTabela({ tablicaWierszy, tablicaKolumn }) {
-  console.log("jestem w tabeli");
+//   console.log("jestem w tabeli");
   return (
     <table className='text-xs border-collapse w-full leading-none h-min'>
       <Naglowek tablicaKolumn={tablicaKolumn} />
-      <tbody>
-        {tablicaWierszy
-          .slice(-5)
+      <Cialo tablicaWierszy={tablicaWierszy} tablicaKolumn={tablicaKolumn}/>
+      {/* <tbody>
+        {tablicaWierszy          
           .reverse()
           .map((wpis) => {
             return (
@@ -20,7 +20,7 @@ export default function WlasnaTabela({ tablicaWierszy, tablicaKolumn }) {
               </tr>
             );
           })}
-      </tbody>
+      </tbody> */}
     </table>
   );
 }

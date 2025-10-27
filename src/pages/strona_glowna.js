@@ -8,7 +8,7 @@ export default function StronaGlowna({ tablicaWierszy }) {
     { klucz: "opis_wpisu", napis: "Opis" },
     { klucz: "okres_wpisu", napis: "Okres" },
   ];
-  console.log(tablicaWierszy);
+//   console.log(tablicaWierszy);
   return (
     <div>
       {tablicaWierszy?.length > 0 ? (
