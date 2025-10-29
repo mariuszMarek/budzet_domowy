@@ -12,8 +12,7 @@ export const formatujKwote = (wartosc) => {
 export const pola = [
   {
     name: "id_wpisu",
-    id: "id_wpisu",
-    // value: crypto.randomUUID(),
+    id: "id_wpisu",    
     wartosc_domyslna: crypto.randomUUID(),
     type: "hidden",
   },
@@ -77,7 +76,7 @@ export const pola = [
     placeholder: "Częstotliwośc wpisu",
     dataMap: [
       { id: 1, wartosc: "Jednorazowo", nazwa: "okres_wpisu" },
-      { id: 2, wartosc: "Dziennie", nazwa: "okres_wpisu" },
+      { id: 2, wartosc: "Dzienny", nazwa: "okres_wpisu" },
       { id: 3, wartosc: "Tygodniowo", nazwa: "okres_wpisu" },
       { id: 4, wartosc: "Miesięcznie", nazwa: "okres_wpisu" },
       { id: 5, wartosc: "Kwartalnie", nazwa: "okres_wpisu" },
@@ -85,30 +84,37 @@ export const pola = [
       { id: 7, wartosc: "Rocznie", nazwa: "okres_wpisu" },
     ],
   },
+  {
+    name: "oplacony",
+    id: "oplacony",
+    label: "Opłacony?",
+    type:"check_box"
+  }
 ];
 
 const stanZero = Object.fromEntries(pola.map((pole) => [pole.name, ""]));
 const ustawStanZero = () => ({
   ...stanZero,
   id_wpisu: crypto.randomUUID(),
-
   dzien_wpisu: new Date(new Date().setHours(new Date().getHours() + czasLetni_Zimowy)).toISOString().slice(0, -8),
+  oplacony:true
 });
 
 export function useWydatek() {
   const [wydatek, setWydatek] = useState(ustawStanZero());
 
   const handlujZmiane = (e) => {
+    console.log(e);
     var { name = "", value = "" } = e?.target || {};
 
-    if (name === "" || name === "") {      
-      const { id = "", wartosc = "", nazwa ="" } = e || {};
+    if (name === "" || name === "") {
+      const { id = "", wartosc = "", nazwa = "" } = e || {};
       value = wartosc;
       name = nazwa;
     }
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
-      [name]: value,
+      [name]: value,      
     }));
   };
 
@@ -118,14 +124,14 @@ export function useWydatek() {
       value = formatujKwote(value);
     }
     setWydatek((poprzedni_wpis) => ({
-      ...poprzedni_wpis,
+      ...poprzedni_wpis,      
       [name]: value,
     }));
   };
 
   const zerujFormularz = () => {
     setWydatek((poprzedni_wpis) => ({
-      ...poprzedni_wpis,
+      ...poprzedni_wpis,      
       id_wpisu: crypto.randomUUID(),
     }));
   };

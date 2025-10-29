@@ -2,6 +2,7 @@ export default function Cialo({ tablicaWierszy, tablicaKolumn }) {
   return (
     <tbody>
       {tablicaWierszy.map((wierszTablicy) => {
+        // console.log(tablicaWierszy)
         return (
           <tr key={wierszTablicy.klucz}>
             {tablicaKolumn.map((kolumna) => {
