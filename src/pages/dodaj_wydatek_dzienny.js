@@ -12,7 +12,7 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
       kwota_wpisu: formatujKwote(wydatek.kwota_wpisu),
     };
     handlujDodanieWpisu(wydatekSformatowany);
-    zerujFormularz();
+    zerujFormularz();    
   };
 
   const kodHTML = (
@@ -25,7 +25,6 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
             return <input key={atrybuty.id} value={aktualnaWartosc} onChange={handlujZmiane} name={atrybuty.name} type='hidden' />;
           }
           else if (atrybuty.type === "list") {
-            // console.log(aktualnaWartosc);
             return (
               <div className='pb-4 flex flex-col' key={atrybuty.id}>
                 <label className='mb-1 font-medium' htmlFor={atrybuty.id}>
@@ -36,10 +35,14 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
             );            
           }          
           else if (atrybuty.type == "check_box") {
-            console.log(atrybuty.type)
-            console.log(aktualnaWartosc)
+            // console.log("aktualnaWartosc");
+            // console.log(aktualnaWartosc);
+            // console.log(atrybuty.type)
+            // console.log("#"+aktualnaWartosc+"#")
             return (
-              <CustomCheckbox nazwa={atrybuty.name} zaznaczony={aktualnaWartosc} gdyZmiana={handlujZmiane} key={atrybuty.id}/>
+              <div key={atrybuty.id} className='pb-4 flex flex-col'>
+              <CustomCheckbox nazwa={atrybuty.name} zaznaczony={aktualnaWartosc} gdyZmiana={handlujZmiane}/>
+              </div>
                )
           } else {
             return (

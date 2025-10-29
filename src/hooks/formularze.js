@@ -104,7 +104,7 @@ export function useWydatek() {
   const [wydatek, setWydatek] = useState(ustawStanZero());
 
   const handlujZmiane = (e) => {
-    console.log(e);
+    // console.log(e);
     var { name = "", value = "" } = e?.target || {};
 
     if (name === "" || name === "") {
@@ -112,6 +112,9 @@ export function useWydatek() {
       value = wartosc;
       name = nazwa;
     }
+    // console.log(name)
+    // console.log(value)
+    // console.log(name)
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
       [name]: value,      

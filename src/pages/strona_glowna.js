@@ -7,12 +7,11 @@ export default function StronaGlowna({ tablicaWierszy }) {
     { klucz: "kategoria", napis: "Kategoria" },
     { klucz: "opis_wpisu", napis: "Opis" },
     { klucz: "okres_wpisu", napis: "Okres" },
+    { klucz: "oplacony", napis: "Opł." },
   ];
-//   console.log(tablicaWierszy);
   return (
     <div>
-      {tablicaWierszy?.length > 0 ? (
-        // tutaj powinna być tabela z tabela.js
+      {tablicaWierszy?.length > 0 ? (        
         <WlasnaTabela tablicaWierszy={tablicaWierszy} tablicaKolumn={tablicaKolumn} />
       ) : (
         <p>brak wpisów w tabeli</p>
