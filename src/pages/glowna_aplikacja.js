@@ -6,14 +6,30 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 
 export default function GlownaAplikacja() {
-  const [wpisy, setWpisy] = useState([]);
+  const NAZWA_LOCAL_STORAGE = "WPISY_TMP";
+  const [wpisy, setWpisy] = useState(() => {
+    // return
+    return JSON.parse(localStorage.getItem(NAZWA_LOCAL_STORAGE)) || [];
+  });
 
   const handlujDodanieWpisu = (nowyWpis) => {
     setWpisy((aktualniePrzechowaneWpisy) => [...aktualniePrzechowaneWpisy, nowyWpis]);
   };
+  
+  const handlujAktualizacjeWpisu = (idZmiany, nazwaPola, nowaWartosc) => {
+    setWpisy((aktualneWpisy) => 
+      aktualneWpisy.map((wpis) => 
+        (wpis.id_wpisu === idZmiany ? { ...wpis, [nazwaPola]: nowaWartosc } : wpis)
+      )
+    );
+  };
+
+  useEffect(() => {
+    localStorage.setItem(NAZWA_LOCAL_STORAGE, JSON.stringify(wpisy));
+  }, [wpisy]);
 
   const elementyDoWypisania = useMemo(() => {
-    return ElementyLewegoPaska(handlujDodanieWpisu, wpisy);
+    return ElementyLewegoPaska(handlujDodanieWpisu, wpisy, handlujAktualizacjeWpisu);
   }, [wpisy]);
 
   return (

@@ -2,14 +2,14 @@ import StronaGlowna from "../pages/strona_glowna";
 import WydatkiDzienne from "../pages/wydatki_dzienne";
 import WydatekDzienny from "../pages/dodaj_wydatek_dzienny";
 
-export default function ElementyLewegoPaska(handlujDodanieWpisu, wpisy) {
+export default function ElementyLewegoPaska(handlujDodanieWpisu, wpisy, handlujAktualizacjeWpisu) {
   // console.log("zwracam elementy do wyboru")
   // console.log(wpisy)
   var licznikId = 1;
   const elementyDoWypisania = [
     {
       id: licznikId++,
-      nazwa_wyswietlana: <StronaGlowna tablicaWierszy={wpisy}/>,
+      nazwa_wyswietlana: <StronaGlowna tablicaWierszy={wpisy} handlujAktualizacjeWpisu={handlujAktualizacjeWpisu}/>,
       sciezka: "strona_glowna",
       nazwa_do_paska: "Główna",
     },

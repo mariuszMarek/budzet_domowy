@@ -1,13 +1,46 @@
-export default function Cialo({ tablicaWierszy, tablicaKolumn }) {
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+
+import EdytowalnaKomorka from "./edytowalna_komorka";
+export default function Cialo({ tablicaWierszy, tablicaKolumn, sterowanieSzerokoscia, handlujAktualizacjeWpisu }) {
   return (
     <tbody>
       {tablicaWierszy.map((wierszTablicy) => {
-        // console.log(tablicaWierszy)
         return (
-          <tr key={wierszTablicy.klucz}>
+          <tr key={wierszTablicy.id_wpisu}>
             {tablicaKolumn.map((kolumna) => {
-              const daneWpisu = wierszTablicy[kolumna.klucz] ? wierszTablicy[kolumna.klucz] : "-";
-              return <td key={kolumna.klucz}>{daneWpisu}</td>;
+              var daneWpisu = "";
+              var sterowanieTekstem = sterowanieSzerokoscia;
+              if (kolumna.klucz in wierszTablicy) {
+                daneWpisu = wierszTablicy[kolumna.klucz];
+                const typDanych = typeof daneWpisu;
+                sterowanieTekstem = kolumna.klucz === "kwota_wpisu" ? sterowanieTekstem + " text-right" : sterowanieTekstem;
+
+                if (typDanych == "boolean") {
+                  // tutaj dodać możliwośc zmiany z false na true, jednorazowo
+                  daneWpisu = daneWpisu ? (
+                    <CheckCircleIcon className='size-5 text-green-500' title='Opłacony' />
+                  ) : (
+                    <XCircleIcon className='size-5 text-red-500' title='Nieopłacony' />
+                  );
+                } else {
+                  return (
+                    <td className={sterowanieTekstem} key={kolumna.klucz}>
+                      <EdytowalnaKomorka
+                        className={sterowanieTekstem}
+                        key={kolumna.klucz}
+                        initialValue={daneWpisu}
+                        rowId={wierszTablicy.id_wpisu}
+                        fieldMeta={kolumna}
+                        handlujAktualizacjeWpisu={handlujAktualizacjeWpisu}
+                        nadrzedneSterowanie={sterowanieTekstem}
+                        cssSettings={sterowanieTekstem}
+                      />
+                    </td>
+                  );
+                }
+              }
+              // return <td className={sterowanieTekstem} key={kolumna.klucz}>{daneWpisu}</td>;
+              // return <td className={sterowanieTekstem} key={kolumna.klucz}>{daneWpisu}</td>;
             })}
           </tr>
         );

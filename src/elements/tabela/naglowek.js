@@ -1,11 +1,14 @@
 import { tab } from "@testing-library/user-event/dist/tab";
 
-export default function Naglowek({ tablicaKolumn }) {
+export default function Naglowek({ tablicaKolumn, sterowanieSzerokoscia }) {
   return (
     <thead>
-      <tr className='text-left'>
+      <tr>
         {tablicaKolumn.map((wpis) => {
-          return(<th className='py-2 px-1.5' key={wpis.klucz}>{wpis.napis}</th>);
+          // var wartoscKlasy = "py-2 pl-2";
+          var wartoscKlasy = sterowanieSzerokoscia;
+          wartoscKlasy += wpis.klucz === "kwota_wpisu" ? "text-right" :"text-left";
+          return(<th className={wartoscKlasy} key={wpis.klucz}>{wpis.napis}</th>);
         })}
       </tr>
     </thead>

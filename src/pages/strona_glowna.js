@@ -1,18 +1,18 @@
 // import Cialo from "../elements/tabela/cialo";
 import WlasnaTabela from "../elements/tabela/tabela";
-export default function StronaGlowna({ tablicaWierszy }) {
+export default function StronaGlowna({ tablicaWierszy, handlujAktualizacjeWpisu }) {
   const tablicaKolumn = [
-    { klucz: "dzien_wpisu", napis: "Data" },
-    { klucz: "kwota_wpisu", napis: "PLN" },
-    { klucz: "kategoria", napis: "Kategoria" },
-    { klucz: "opis_wpisu", napis: "Opis" },
-    { klucz: "okres_wpisu", napis: "Okres" },
-    { klucz: "oplacony", napis: "Opł." },
+    { klucz: "dzien_wpisu", napis: "Data", edytowalne: false },
+    { klucz: "kwota_wpisu", napis: "PLN", edytowalne: true },
+    { klucz: "kategoria", napis: "Kategoria", edytowalne: false },
+    { klucz: "opis_wpisu", napis: "Opis", edytowalne: true },
+    { klucz: "okres_wpisu", napis: "Okres", edytowalne: false },
+    { klucz: "oplacony", napis: "Opł.", edytowalne: true },
   ];
   return (
     <div>
-      {tablicaWierszy?.length > 0 ? (        
-        <WlasnaTabela tablicaWierszy={tablicaWierszy} tablicaKolumn={tablicaKolumn} />
+      {tablicaWierszy?.length > 0 ? (
+        <WlasnaTabela tablicaWierszy={tablicaWierszy} tablicaKolumn={tablicaKolumn} handlujAktualizacjeWpisu={handlujAktualizacjeWpisu} />
       ) : (
         <p>brak wpisów w tabeli</p>
       )}

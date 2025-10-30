@@ -112,9 +112,7 @@ export function useWydatek() {
       value = wartosc;
       name = nazwa;
     }
-    // console.log(name)
-    // console.log(value)
-    // console.log(name)
+
     setWydatek((poprzedni_wpis) => ({
       ...poprzedni_wpis,
       [name]: value,      
