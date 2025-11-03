@@ -17,6 +17,9 @@ export default function GlownaAplikacja() {
   };
   
   const handlujAktualizacjeWpisu = (idZmiany, nazwaPola, nowaWartosc) => {
+    console.log(idZmiany)
+    console.log(nazwaPola)
+    console.log(nowaWartosc)
     setWpisy((aktualneWpisy) => 
       aktualneWpisy.map((wpis) => 
         (wpis.id_wpisu === idZmiany ? { ...wpis, [nazwaPola]: nowaWartosc } : wpis)

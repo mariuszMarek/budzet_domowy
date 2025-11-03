@@ -2,7 +2,7 @@ import { pola } from "../hooks/formularze";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function OstatnieWpisy({ wpisy }) {
-  console.log(wpisy);
+  // console.log(wpisy);
   return (
     <table className='text-xs border-collapse w-full leading-none h-min'>
       <thead>

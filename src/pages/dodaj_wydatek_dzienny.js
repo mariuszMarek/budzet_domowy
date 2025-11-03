@@ -35,10 +35,6 @@ export default function WydatekDzienny({ handlujDodanieWpisu }) {
             );            
           }          
           else if (atrybuty.type == "check_box") {
-            // console.log("aktualnaWartosc");
-            // console.log(aktualnaWartosc);
-            // console.log(atrybuty.type)
-            // console.log("#"+aktualnaWartosc+"#")
             return (
               <div key={atrybuty.id} className='pb-4 flex flex-col'>
               <CustomCheckbox nazwa={atrybuty.name} zaznaczony={aktualnaWartosc} gdyZmiana={handlujZmiane}/>

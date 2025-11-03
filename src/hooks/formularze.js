@@ -105,6 +105,7 @@ export function useWydatek() {
 
   const handlujZmiane = (e) => {
     // console.log(e);
+    // tutaj dodać obsługę typu danych
     var { name = "", value = "" } = e?.target || {};
 
     if (name === "" || name === "") {

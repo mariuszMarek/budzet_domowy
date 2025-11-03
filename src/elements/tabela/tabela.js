@@ -1,7 +1,7 @@
 import Cialo from "./cialo";
 import Naglowek from "./naglowek";
 export default function WlasnaTabela({ tablicaWierszy, tablicaKolumn, handlujAktualizacjeWpisu }) {
-  const sterowanieSzerokoscia = "py-0.5 px-5 "
+  const sterowanieSzerokoscia = "py-0.5 px-2 min-w-[140px] "
   return (
     <table className='text-xs border-collapse leading-none h-min'>
       <Naglowek tablicaKolumn={tablicaKolumn}  sterowanieSzerokoscia={sterowanieSzerokoscia}/>
